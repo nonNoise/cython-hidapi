@@ -5,7 +5,7 @@ import sys
 
 
 setup(
-    name = 'hidapi-armv7l',
+    name = 'hidapi_armv7l',
     version = '0.7.99.post21',
     description = """
 		A Cython interface to the hidapi from https://github.com/signal11/hidapi
@@ -15,7 +15,9 @@ setup(
     author = 'Y.Kitagami',
     author_email = 'kitagami@artifactnoise.com',
     url = 'https://github.com/nonNoise/cython-hidapi',
-    package_dir = {'hid': 'build/lib.linux-armv7l-2.7/*'},
+    packages=['hidapi_armv7l'],
+    package_dir = {'hidapi_armv7l': 'hidapi_armv7l'},
+    package_data={'hidapi_armv7l': ['./hidraw.so','./hid.so']},
     classifiers = [
         'Operating System :: Linux :: armv7l',
         'License :: OSI Approved :: BSD License',
@@ -29,4 +31,5 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
+    install_requires = ['setuptools>=19.0'],
 )

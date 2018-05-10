@@ -1,6 +1,0 @@
-README.rst
-setup.py
-hidapi_armv7l.egg-info/PKG-INFO
-hidapi_armv7l.egg-info/SOURCES.txt
-hidapi_armv7l.egg-info/dependency_links.txt
-hidapi_armv7l.egg-info/top_level.txt

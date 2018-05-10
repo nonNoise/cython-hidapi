@@ -3,110 +3,21 @@ from setuptools import setup, Extension
 import os
 import sys
 
-hidapi_topdir = os.path.join('hidapi')
-hidapi_include = os.path.join(hidapi_topdir, 'hidapi')
-system_hidapi = 0
-libs= []
-src = ['hid.pyx', 'chid.pxd']
-
-def hidapi_src(platform):
-    return os.path.join(hidapi_topdir, platform, 'hid.c')
-
-if '--with-system-hidapi' in sys.argv:
-    sys.argv.remove('--with-system-hidapi')
-    system_hidapi = 1
-    hidapi_include = '/usr/include/hidapi'
-
-if sys.platform.startswith('linux'):
-    modules = []
-    if '--without-libusb' in sys.argv:
-        sys.argv.remove('--without-libusb')
-        hidraw_module = 'hid'
-    else:
-        hidraw_module = 'hidraw'
-        libs = ['usb-1.0', 'udev', 'rt']
-        if system_hidapi == 1:
-            libs.append('hidapi-libusb')
-        else:
-            src.append(hidapi_src('libusb'))
-        modules.append(
-            Extension('hid',
-                sources = src,
-                include_dirs = [hidapi_include, '/usr/include/libusb-1.0'],
-                libraries = libs,
-            )
-        )
-    libs = ['udev', 'rt']
-    src = ['hidraw.pyx', 'chid.pxd']
-    if system_hidapi == 1:
-        libs.append('hidapi-hidraw')
-    else:
-        src.append(hidapi_src('linux'))
-    modules.append(
-        Extension(hidraw_module,
-            sources = src,
-            include_dirs = [hidapi_include],
-            libraries = libs,
-        )
-    )
-
-if sys.platform.startswith('darwin'):
-    os.environ['CFLAGS'] = '-framework IOKit -framework CoreFoundation'
-    os.environ['LDFLAGS'] = ''
-    if system_hidapi == True:
-        libs.append('hidapi')
-    else:
-        src.append(hidapi_src('mac'))
-    modules = [
-        Extension('hid',
-            sources = src,
-            include_dirs = [hidapi_include],
-            libraries = libs,
-        )
-    ]
-
-if sys.platform.startswith('win') or sys.platform.startswith('cygwin'):
-    libs = ['setupapi']
-    if system_hidapi == True:
-        libs.append('hidapi')
-    else:
-        src.append(hidapi_src('windows'))
-    modules = [
-        Extension('hid',
-            sources = src,
-            include_dirs = [hidapi_include],
-            libraries = libs,
-        )
-    ]
-
-if 'bsd' in sys.platform:
-    libs = ['usb-1.0']
-    if system_hidapi == True:
-        libs.append('hidapi-libusb')
-    else:
-        src.append(hidapi_src('libusb'))
-    modules = [
-        Extension('hid',
-            sources = src,
-            include_dirs = [hidapi_include, '/usr/include/libusb-1.0'],
-            libraries = libs,
-        )
-    ]
 
 setup(
-    name = 'hidapi',
+    name = 'hidapi-armv7l',
     version = '0.7.99.post21',
-    description = 'A Cython interface to the hidapi from https://github.com/signal11/hidapi',
-    author = 'Gary Bishop',
-    author_email = 'gb@cs.unc.edu',
-    maintainer = 'Pavol Rusnak',
-    maintainer_email = 'stick@gk2.sk',
-    url = 'https://github.com/trezor/cython-hidapi',
-    package_dir = {'hid': 'hidapi/*'},
+    description = """
+		A Cython interface to the hidapi from https://github.com/signal11/hidapi
+		hidapy and python2,x build on armv7l.
+		Raspberry Pi 2B,3B,3B+ / BeagleBone / PocketBeagle / NanoPi / etc... support.		
+		""",
+    author = 'Y.Kitagami',
+    author_email = 'kitagami@artifactnoise.com',
+    url = 'https://github.com/nonNoise/cython-hidapi',
+    package_dir = {'hid': 'build/lib.linux-armv7l-2.7/*'},
     classifiers = [
-        'Operating System :: MacOS :: MacOS X',
-        'Operating System :: Microsoft :: Windows',
-        'Operating System :: POSIX',
+        'Operating System :: Linux :: armv7l',
         'License :: OSI Approved :: BSD License',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Programming Language :: Python :: 2',
@@ -118,7 +29,5 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
-    ext_modules = modules,
-    setup_requires = ['Cython'],
     install_requires = ['setuptools>=19.0'],
 )

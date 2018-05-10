@@ -1,1 +1,0 @@
-hidapi_armv7l

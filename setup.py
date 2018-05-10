@@ -15,9 +15,9 @@ setup(
     author = 'Y.Kitagami',
     author_email = 'kitagami@artifactnoise.com',
     url = 'https://github.com/nonNoise/cython-hidapi',
-    packages=['hid'],
-    package_dir = {'hid': 'hidapi_armv7l'},
-    package_data={'hid': ['./hidraw.so','./hid.so']},
+    packages=['hidapi_armv7l'],
+    package_dir = {'hidapi_armv7l': 'hidapi_armv7l'},
+    package_data={'hidapi_armv7l': ['./hidraw.so','./hid.so',"./hid.pyx"]},
     classifiers = [
         'Operating System :: Linux :: armv7l',
         'License :: OSI Approved :: BSD License',

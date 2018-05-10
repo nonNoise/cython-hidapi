@@ -1,0 +1,10 @@
+README.rst
+setup.py
+hidapi_armv7l/__init__.py
+hidapi_armv7l/hid.so
+hidapi_armv7l/hidraw.so
+hidapi_armv7l.egg-info/PKG-INFO
+hidapi_armv7l.egg-info/SOURCES.txt
+hidapi_armv7l.egg-info/dependency_links.txt
+hidapi_armv7l.egg-info/requires.txt
+hidapi_armv7l.egg-info/top_level.txt
